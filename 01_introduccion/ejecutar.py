@@ -1,4 +1,4 @@
 print('Hola mundo')
 nombre = input('Ingresa algo')
-print(type(nomnbre))
+print(type(nombre))
 print(f'Tu nombre es: {nombre}')
