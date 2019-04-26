@@ -1,3 +1,2 @@
-Nissan;Rojo;PBC-556;17000;1600ccpas-231;gris;nissan;15000;1222
 PYW-0011;Blanco;Jeep;24340;2300
 
