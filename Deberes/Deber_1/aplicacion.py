@@ -9,14 +9,15 @@ def imprimir_fila(auto):
 
 def imprimir_autos():
     print("Tienda de Autos ")
-    lista = tienda_autos.listar_autos()
+    #lista = tienda_autos.listar_autos()
+    lista = tienda_autos.leer_archivo_auto()
     imprimir_tipos()
     for auto in lista:
         imprimir_fila(auto)
         
 def buscar_auto():
     print("Buscar auto ")
-    placa = input("Ingresela placa del auto a buscar: ")
+    placa = input("Ingrese la placa del auto a buscar: ")
     auto = tienda_autos.buscar_por_placa(placa)
     if auto != None:
         imprimir_tipos()
@@ -74,6 +75,7 @@ def opciones_menu(value):
             0: None,
             1: tienda_autos.ingresar_auto,
             2: imprimir_autos,
+            #2: tienda_autos.leer_archivo_auto,
             3: buscar_auto,
             4: eliminar_auto,
             5: actualizar_auto,
