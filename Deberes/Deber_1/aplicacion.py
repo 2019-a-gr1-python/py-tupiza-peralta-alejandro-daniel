@@ -79,7 +79,7 @@ def opciones_menu(value):
             5: actualizar_auto,
         }[value]
     except KeyError:
-        print("No existe esta acción")
+        print("No existe esta opcion")
 
 def aplicacion(option):
     while option != 0:
@@ -94,9 +94,8 @@ def aplicacion(option):
         if (read.isnumeric()):
             option = int(read)
         try:
-            acciones(option)()
+            opciones_menu(option)()
         except TypeError:
             print(f'Option {option}')
 
-main(-1)
-
+aplicacion(-1)
