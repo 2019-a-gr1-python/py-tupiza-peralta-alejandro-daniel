@@ -14,14 +14,14 @@ def leer_archivo_auto(path):
     try:
         lineas = []
         archivo_escritura_auto = open(path)
-        linea_archivo = archivo_escritura_auto.readlines()
+        linea_archivo = archivo_escritura_auto.readlinese()
         for linea in linea_archivo:
             lineas.append(linea)
         archivo_escritura_auto.close()
         return lineas
     except:
         print('Error...Nose puede leer el archivo')
-        
+      
         
 
 def ingresar_auto():
