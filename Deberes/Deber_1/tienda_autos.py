@@ -26,13 +26,13 @@ def leer_archivo_auto(path):
 
 def ingresar_auto():
     print('Ingrese la siguiente informacion del auto')
-    modelo = input('Ingrese el modelo: ')
-    color = input('Ingrese el color: ')
     placa = input('Ingrese la placa: ')
+    color = input('Ingrese el color: ')
+    modelo = input('Ingrese el modelo: ')
     precio = input('Ingrese el precio: ')
     hp = input('Ingrese los caballos de fuerza: ')
     auto = placa + ';' + color + ';' + modelo + ';' + precio + ';' + hp
-    archivos_autos.agregar_auto('./autos.txt','a',auto)
+    archivo_auto = agregar_auto('./autos.txt','a',auto)
     
 def listar_autos():
     archivo_autos = archivos_autos.leer_archivo_auto('./autos.txt')
