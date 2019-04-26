@@ -7,7 +7,7 @@ def ingresar_auto():
     placa = input('Ingrese la placa: ')
     precio = input('Ingrese el precio: ')
     hp = input('Ingrese los caballos de fuerza: ')
-    auto = modelo + ';' + color + ';' + placa + ';' + precio + ';' + hp
+    auto = placa + ';' + color + ';' + modelo + ';' + precio + ';' + hp
     archivos_autos.agregar_auto('./autos.txt','a',auto)
     
 def listar_autos():
