@@ -8,12 +8,16 @@ def imprimir_fila(auto):
     print('%(placa)-10%(color)-10%(modelo)-15%(precio)-20%(hp)-10s' % auto)
 
 def imprimir_autos():
-    print("Tienda de Autos ")
-    #lista = tienda_autos.listar_autos()
-    lista = tienda_autos.leer_archivo_auto()
-    imprimir_tipos()
-    for auto in lista:
-        imprimir_fila(auto)
+    try:
+        path = './autos.txt'
+        archivo_abierto = open(path,mode='r')
+        #lista = tienda_autos.listar_autos()
+        #imprimir_tipos()
+        for lineas in archivo_abierto:
+            print(lineas)
+        archivo.abierto.close
+    except:
+        print('...')
         
 def buscar_auto():
     print("Buscar auto ")

@@ -4,7 +4,8 @@ def agregar_auto(path,option,*autos):
     try:
         archivo_escritura_auto = open(path,option)
         for linea in autos:
-            archivo_escritura_auto.write(linea + '\n')
+            #archivo_escritura_auto.write(linea + '\n')
+            archivo_escritura_auto.write(linea)
         archivo_escritura_auto.close()
         print('Informacion guardada')
     except:
@@ -12,13 +13,12 @@ def agregar_auto(path,option,*autos):
 
 def leer_archivo_auto(path):
     try:
-        lineas = []
-        archivo_escritura_auto = open(path)
+        archivo_escritura_auto = open(path,mode='r')
         linea_archivo = archivo_escritura_auto.readlinese()
-        for linea in linea_archivo:
-            lineas.append(linea)
+        for lineas in archivo_escritura_auto:
+            print(lineas)
         archivo_escritura_auto.close()
-        return lineas
+        #return lineas
     except:
         print('Error...Nose puede leer el archivo')
       
@@ -31,7 +31,7 @@ def ingresar_auto():
     modelo = input('Ingrese el modelo: ')
     precio = input('Ingrese el precio: ')
     hp = input('Ingrese los caballos de fuerza: ')
-    auto = placa + ';' + color + ';' + modelo + ';' + precio + ';' + hp + '\n'
+    auto = placa + ';' + color + ';' + modelo + ';' + precio + ';' + hp
     archivo_auto = agregar_auto('./autos.txt','a',auto)
     
 def listar_autos():
