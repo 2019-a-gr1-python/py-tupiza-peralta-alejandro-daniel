@@ -1,24 +1,15 @@
 import tienda_autos
 
-def imprimir_tipos():
-    print('%-10s%-10s%-15s%-20s%-10s' % ('Placa', 'Color', 'Modelo', 'Precio', 'Caballos de fuerza'))
-
-
-def imprimir_fila(auto):
-    print('%(placa)-10%(color)-10%(modelo)-15%(precio)-20%(hp)-10s' % auto)
-
 def imprimir_autos():
     try:
         path = './autos.txt'
         archivo_abierto = open(path,mode='r')
-        #lista = tienda_autos.listar_autos()
-        #imprimir_tipos()
         for lineas in archivo_abierto:
             print(lineas)
         archivo.abierto.close
     except:
         print('...')
-        
+
 def buscar_auto():
     print("Buscar auto ")
     placa = input("Ingrese la placa del auto a buscar: ")
@@ -29,12 +20,26 @@ def buscar_auto():
     else:
         print(f"Auto con placa {placa} no existe")
       
-def eliminar_auto():
-    print("Eliminar auto ")
-    placa = input("Ingrese la placa del auto a eliminar: ")
-    tienda_autos.eliminar_auto_por_placa(placa)
-    
-    
+def eliminar_auto(idem):
+    lista_autos = []
+    inf_eliminada = -1
+    try:
+        path = './autos.txt'
+        archivo_abierto = open(path,mode='r')
+        print("Eliminar auto ")
+        placa = input("Ingrese la placa del auto a eliminar: ")
+        for lineas in archivo_abierto:
+            lista_autos.append(lineas)
+        archivo_abierto.close()
+    except:
+        print('Error')
+        
+    for i in lista_autos:
+        y = x.split(';')
+        if y[0] == idem:
+            inf_eliminada = int(lista_autos.index(x))
+            print ('Se elimino el usuario: ' + lista_autos.pop(inf_eliminada))
+
 def actualizar_auto():
     print("Actualizar auto ")
     placa = input("Ingrese la placa del auto a modificar: ")
@@ -73,17 +78,16 @@ def actualizar_auto():
     else:
         print(f"El auto con placa {placa} no existe")
 
-def opciones_menu(value):
+def opciones_menu(valor):
     try:
         return {
             0: None,
             1: tienda_autos.ingresar_auto,
             2: imprimir_autos,
-            #2: tienda_autos.leer_archivo_auto,
             3: buscar_auto,
             4: eliminar_auto,
             5: actualizar_auto,
-        }[value]
+        }[valor]
     except KeyError:
         print("No existe esta opcion")
 
