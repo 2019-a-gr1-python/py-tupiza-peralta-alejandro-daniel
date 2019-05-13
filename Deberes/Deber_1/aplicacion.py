@@ -15,8 +15,9 @@ def buscar_auto():
     placa = input("Ingrese la placa del auto a buscar: ")
     auto = tienda_autos.buscar_por_placa(placa)
     if auto != None:
-        imprimir_tipos()
-        imprimir_fila(auto)
+        imprimir_autos(placa)
+        #imprimir_tipos()
+        #imprimir_fila(auto)
     else:
         print(f"Auto con placa {placa} no existe")
       
@@ -55,8 +56,8 @@ def actualizar_auto():
             }[value]
         except KeyError:
             print("Eliga una opcion!")
-    if zapato != None:
-        imprimir_tipos()
+    if auto != None:
+        #imprimir_tipos()
         imprimir_autos(auto)
         print("Opciones")
         print("1.- Modificar color")

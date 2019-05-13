@@ -34,7 +34,7 @@ def buscar_por_placa(placa):
             break
         else:
             auto = None
-    return auto   
+   ´ return auto   
     
 def leer_archivo_auto(path):
     try:
