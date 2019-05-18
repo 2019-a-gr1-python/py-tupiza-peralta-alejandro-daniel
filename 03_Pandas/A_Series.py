@@ -92,15 +92,49 @@ randomico = np.random.rand(3)
 serie_tres_rand = pd.Series(randomico)
 
 ciudades_uno.index
-
+# Suma los valores
+ciudades_add = ciudades_uno.add(ciudades_dos) 
 # Concatenar series
+ciudades_unidas = pd.concat([ciudades_uno,ciudades_dos])
+# Verifica si los indices se repiten
+ciudades_unidas_v = pd.concat([ciudades_uno,ciudades_dos],
+                              verify_integrity=True)
+print(ciudades_unidas)
+
+ciudades_append = ciudades_uno.append(ciudades_dos)
 # Añadir un indice valor a una serie
+
 # Maximo
+ciudades_uno.max()
+pd.Series.max(ciudades_uno)
+np.max(ciudades_uno)
 # Minimo
+pd.Series.min(ciudades_uno)
 # Estadisticas (Avg Mean...)
+ciudades_uno.mean()
+ciudades_uno.median()
+np.average(ciudades_uno)
 
-ciudades_uno = np.add(ciudades_dos)
-print(ciudades_uno)
+# Primer (5)
+ciudades_uno.head(2)
+# Ultimos (5)
+ciudades_uno.tail(2)
 
+ciudades_uno.sort_values(ascending=False)
+ciudades_uno.sort_values(ascending=False).head(2)
+ciudades_uno.sort_values().tail(2)
 
+# 0 >= 1000          5%
+# 1000 > 10000      10%
+# 10000 >           15%
+def calculo(valor):
+    if(valor <= 1000):
+        return valor * 1.05
+    if(valor > 1000 and valor <= 10000):
+        return valor * 1.10
+    if(valor > 10000):
+        return valor * 1.15
+ciudades_uno.map(calculo) # map itera el arreglo
+
+ciudades_uno.where(ciudades_uno > 1000,ciudades_uno * 1.05)
 
