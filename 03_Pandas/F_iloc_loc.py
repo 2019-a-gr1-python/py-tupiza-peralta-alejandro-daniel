@@ -33,11 +33,28 @@ serie_validado = pd.to_numeric(df['width'], errors='coerce')
 df.loc[:,'width'] = serie_validado
 df.iloc[:,5] = serie_validado
 
-diez_primeros = df['width'].sort_values(ascending=False).head(10)
+diez_primeros = df['height'].sort_values(ascending=False).head(10)
 
 diez_ultimos = df['width'].sort_values(ascending=False).tail(10)
 
 serie_validado_height = pd.to_numeric(df['height'], errors='coerce')
 df.loc[:,'height'] = serie_validado_height
 
+area = df['height'] * df['width']
+
+type(area)  # Serie
+
+df['area'] = area
+
+df = df.assign(areados = area)
+
+df_area = df['area'].sort_values(ascending = False).head(1)
+
+id_max_area = df['area'].idxmax()   # Label
+
+id_min_area = df['area'].idxmin()   # Label
+
+registro_mas_area = df.loc[id_max_area]
+
+registro_menor_area = df.loc[id_min_area]
 
