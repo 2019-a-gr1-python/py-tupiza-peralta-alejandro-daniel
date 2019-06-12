@@ -58,7 +58,7 @@ artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
 
 hoja_artistas = writer.sheets['Artistas contados']
 
-rango_celdas = 'B2:B{}'.format(len(artistas_contados.index))
+rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
 
 formato = {
         'type': '2_color_scale',
@@ -75,8 +75,92 @@ writer.save()
 
 ######################### SQL ###########################
 
+with sqlite3.connect('bdd_python.db') as conexion:
+    df.to_sql('tabla', conexion)
+
+## with mysql.connect('mysql://user:password@ip:puerto/bd') as conexion:
+##     df.to_sql('Alguien', conexion)>
+
+
+######################### JSON ###########################
+
+df.to_json('artistas.json')
+    
+df.to_json('artistas_orientado_tabla.json', orient = 'table')
+
+################### FORMATO DATA_BAR ######################
+
+artistas_contados = df_completo_pickle['artist'].value_counts()
+
+writer = pd.ExcelWriter('formato_data_bar.xlsx', engine = 'xlsxwriter')
+
+artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
+
+hoja_artistas = writer.sheets['Artistas contados']
+
+rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
+
+formato = {
+        'type': 'data_bar',
+        'min_value': '10',
+        'min_type': 'percentile',
+        'max_value': '99',
+        'max_type': 'percentile',
+        'bar_color': 'green'
+        }
+
+hoja_artistas.conditional_format(rango_celdas, formato)
+
+writer.save()
+
+################### FORMATO incon_set ######################
+
+artistas_contados = df['artist'].value_counts()
+
+writer = pd.ExcelWriter('formato_icon_set.xlsx', engine = 'xlsxwriter')
+
+artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
+
+hoja_artistas = writer.sheets['Artistas contados']
+
+rango_celdas = 'B1:{}'.format(len(artistas_contados.index) + 1)
+
+formato = {
+        'type': 'icon_set',
+        'icon_style': '5_quarters'
+        }
+
+hoja_artistas.conditional_format(rango_celdas, formato)
+
+writer.save()
+
+################### FORMATO DATA_BAR ######################
+
+artistas_contados = df_completo_pickle['artist'].value_counts()
+
+writer = pd.ExcelWriter('formato_bar_right.xlsx', engine = 'xlsxwriter')
+
+artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
+
+hoja_artistas = writer.sheets['Artistas contados']
+
+rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
+
+formato = {
+       'type': 'icon_set',
+        'icon_style': '5_ratings'
+        }
+
+hoja_artistas.conditional_format(rango_celdas, formato)
+
+writer.save()
 
 
 
 
 
+
+
+
+
+    
