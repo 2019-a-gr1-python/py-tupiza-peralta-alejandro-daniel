@@ -177,33 +177,29 @@ hoja_artistas.conditional_format(rango_celdas, formato)
 
 writer.save()
 
+################################## ICON SET 2 ############33333########
 
+artistas_contados = df_completo_pickle['artist'].value_counts().head(100)
 
-
-##########################################
-artistas_contados = df['artist'].value_counts()
-
-writer = pd.ExcelWriter('formato_rating.xlsx', engine = 'xlsxwriter')
+writer = pd.ExcelWriter('formato_icon.xlsx', engine = 'xlsxwriter')
 
 artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
 
 hoja_artistas = writer.sheets['Artistas contados']
 
-rango_celdas = 'B2:{}'.format(len(artistas_contados.index) + 1)
+rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
 
 formato = {
-        #'type': 'icon_set',
-        #'icon_style': '5_quarters'
         'type': 'icon_set',
-        'icon_style': '5_ratings'
+        'icon_style': '4_red_to_black',
+        'icons': [{'criteria': '>=', 'type': 'number',     'value': 90},
+                  {'criteria': '<',  'type': 'percentile', 'value': 50},
+                  {'criteria': '<=', 'type': 'percent', 'value': 25}]
         }
 
 hoja_artistas.conditional_format(rango_celdas, formato)
 
 writer.save()
-
-
-
 
 
 
