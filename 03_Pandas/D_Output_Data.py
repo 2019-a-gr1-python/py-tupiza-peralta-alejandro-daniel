@@ -134,9 +134,9 @@ hoja_artistas.conditional_format(rango_celdas, formato)
 
 writer.save()
 
-################### FORMATO DATA_BAR ######################
+################### FORMATO quarters ######################
 
-artistas_contados = df_completo_pickle['artist'].value_counts()
+artistas_contados = df_completo_pickle['artist'].value_counts().head(100)
 
 writer = pd.ExcelWriter('formato_bar_right.xlsx', engine = 'xlsxwriter')
 
@@ -147,7 +147,54 @@ hoja_artistas = writer.sheets['Artistas contados']
 rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
 
 formato = {
-       'type': 'icon_set',
+        #'type': 'icon_set',
+        #'icon_style': '5_ratings'
+        'type': 'icon_set',
+        'icon_style': '5_quarters'
+        }
+
+hoja_artistas.conditional_format(rango_celdas, formato)
+
+writer.save()
+
+####################### arrow ###################
+artistas_contados = df_completo_pickle['artist'].value_counts().head(100)
+
+writer = pd.ExcelWriter('formato_arrow.xlsx', engine = 'xlsxwriter')
+
+artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
+
+hoja_artistas = writer.sheets['Artistas contados']
+
+rango_celdas = 'B2:B{}'.format(len(artistas_contados.index) + 1)
+
+formato = {
+        'type': 'icon_set',
+        'icon_style': '5_arrows_gray'
+        }
+
+hoja_artistas.conditional_format(rango_celdas, formato)
+
+writer.save()
+
+
+
+
+##########################################
+artistas_contados = df['artist'].value_counts()
+
+writer = pd.ExcelWriter('formato_rating.xlsx', engine = 'xlsxwriter')
+
+artistas_contados.to_excel(writer, sheet_name = 'Artistas contados')
+
+hoja_artistas = writer.sheets['Artistas contados']
+
+rango_celdas = 'B2:{}'.format(len(artistas_contados.index) + 1)
+
+formato = {
+        #'type': 'icon_set',
+        #'icon_style': '5_quarters'
+        'type': 'icon_set',
         'icon_style': '5_ratings'
         }
 
