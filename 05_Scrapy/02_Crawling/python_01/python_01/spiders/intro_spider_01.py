@@ -1,4 +1,5 @@
 import scrapy
+import pandas as pd
 
 class IntroSpider(scrapy.Spider):
     name = 'introduccion_spider'
@@ -27,3 +28,8 @@ class IntroSpider(scrapy.Spider):
         print(precios)
 
         print(diccionario)
+
+        df_archivo = pd.DataFrame([key, diccionario[key] for key in diccionario.keys()], columns=['titulos','stocks','precios'])
+        df_archivo
+
+        df.to_excel('libros.xlsx')
