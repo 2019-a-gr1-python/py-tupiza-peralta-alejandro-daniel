@@ -3,26 +3,28 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 class AraniaCrawlOnu(CrawlSpider):
-    name = 'crawl_onu'  # Heredado (conservar nombre)
-    allowed_domains = [ # Heredado (conservar nombre)
-        'un.org'
+    name = 'crawl_libros'  # Heredado (conservar nombre)
+    
+    allowed_domains = [  # Heredado (conservar nombre)
+        'http://books.toscrape.com/'
     ]
     start_urls = [  # Heredado (conservar nombre)
         'https://www.un.org/en/sections/about-un/funds-programmes-specialized-agencies-and-others/index.html'
     ]
+    # Heredado (conservar nombre)
 
     regla_uno = (
-        Rule(LinkExtractor(), callback='parse_page'),
+        Rule(LinkExtractor(), callback='parse_page')
+        ,
     )
 
     url_segmento_permitido = (
-        'funds-programmes-specialized-agencies-and-others'
+        '/catalogue/category/books/mystery_3/',
+        '/catalogue/category/books/fantasy_19/' 
     )
 
     url_segmento_restringido = (
-        'ar/sections',
-        'zh/sections',
-        'ru/sections'
+        
     )
 
     regla_dos = (
@@ -30,7 +32,7 @@ class AraniaCrawlOnu(CrawlSpider):
             LinkExtractor(
                 allow_domains=allowed_domains,
                 allow=url_segmento_permitido
-        ), callback='parse_page')
+            ), callback='parse_page')
         ,
     )
 
@@ -40,20 +42,16 @@ class AraniaCrawlOnu(CrawlSpider):
                 allow_domains=allowed_domains,
                 allow=url_segmento_permitido,
                 deny=url_segmento_restringido
-        ), callback='parse_page')
+            ), callback='parse_page')
         ,
     )
 
-    rules = regla_tres
+    rules = regla_dos
+
 
     def parse_page(self, response):
-        lista_programas = response.css('div.field-items > div.field-item > h4::text').extract()
+        lista_programas = response.css('article.product_pod > h3 > a::attr(title)').extract()
 
         for agencia in lista_programas:
-            with open('onu_agencias.txt', 'a+') as archivo:
+            with open('libros.txt', 'a+') as archivo:
                 archivo.write(agencia + '\n')
-
-
-
-
-
