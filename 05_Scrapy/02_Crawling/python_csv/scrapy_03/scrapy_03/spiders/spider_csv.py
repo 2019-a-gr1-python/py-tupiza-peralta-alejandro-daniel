@@ -30,3 +30,6 @@ class VinosArania(CSVFeedSpider):
         'alcohol',
         'quality'
     ]
+
+    def parse_row(self, response, row):
+        print('ph = ', row['pH'])
