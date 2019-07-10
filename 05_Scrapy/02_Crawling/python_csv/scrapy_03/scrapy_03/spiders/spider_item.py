@@ -1,24 +1,40 @@
-"""
+import scrapy
+from scrapy_03.items import ProductoFybeca
 
-url = response.xpath('//div[contains(@class,"detail")]/a[contains(@class,"image")]/img[contains(@id,"gImg")]/@src')
-contenedor = response.css('div.product-tile-inner')
-titulo = contenedor.css('a.name::text')
+class AraniaProductosFybeca(scrapy.Spider):
+    name = 'arania_fybeca'
 
-def transformar_url_imagen(texto): 
-    url = 'https://www.fybeca.com' 
-    cadena_a_reemplazar = '../..'   
-    print('ASDASDAS') 
-    return texto.replace(cadena_a_reemplazar,url)
+    def start_requests(self):
+        urls = [
+        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=0&pp=25'
+        ]
 
-class ProductoFybeca(scrapy.Item):
-    imagen = scrapy.Field(
-        input_processor = MapCompose(transformar_url_imagen)
-    )
-    titulo = scrapy.Field()
+        for url in urls:
+            yield scrapy.Request(url=url)
 
-from scrapy.loader import ItemLoader
-il = ItemLoader(item=ProductoFybecaDos())
-il.add_value('imagen',url.extract_first())
-il.add_value('titulo', titulo.extract_first())
-il.load_item()
-"""
+    def parse(self, response):
+
+        productos = response.css('div.product-tile-inner')
+
+        for producto in productos:
+            existe_producto = len(producto.css('div.detail'))
+
+            if(existe_producto > 0):
+                #titulo = producto.css('a.name::text')
+                #url = producto.xpath('//div[contains(@class,"detail")]/a[contains(@class,"image")]/img[contains(@id,"gImg")]/@src')
+                producto_loader = ItemLoader(
+                item = ProductoFybeca(),
+                selector = producto
+                )
+                # producto_loader.default_output_processor = TakeFirst()
+                producto_loader.add_css(
+                    'titulo',
+                    'a.name::text'
+                    )
+                
+                producto_loader.add_xpath(
+                    'imagen',
+                    'div[contains(@class,"detail")]/a[contains(@class,"image")]/img[contains(@id,"gImg")]/@src'
+                )
+
+                yield producto_loader.load_item()
