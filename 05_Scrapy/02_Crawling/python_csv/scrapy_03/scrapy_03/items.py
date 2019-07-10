@@ -20,3 +20,4 @@ class ProductoFybeca(scrapy.Item):
             )
     )
     titulo = scrapy.Field()
+    precio = scrapy.Field()
