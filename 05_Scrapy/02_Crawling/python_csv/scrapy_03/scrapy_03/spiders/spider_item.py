@@ -30,7 +30,7 @@ class AraniaProductosFybeca(scrapy.Spider):
 
         productos = response.css('div.product-tile-inner')
         for producto in productos:
-            existe_producto = len( producto.css('div.detail'))
+            existe_producto = len(producto.css('div.detail'))
             if(existe_producto > 0):
                 # titulo = producto.css('a.name::text')
                 # url = producto.xpath('//div[contains(@class,"detail")]/a[contains(@class,"image")]/img[contains(@id,"gImg")]/@src')
@@ -53,3 +53,7 @@ class AraniaProductosFybeca(scrapy.Spider):
                 #producto_imprimir = producto_loader.load_item()
                 #print(producto_imprimir)
                 yield producto_loader.load_item()
+        
+        precios = response.css('.price::attr(data-bind)')
+        for precio in precios:
+            existe _precio = len()
