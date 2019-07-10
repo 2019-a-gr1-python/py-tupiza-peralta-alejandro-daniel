@@ -1,5 +1,7 @@
 import scrapy
-from scrapy_03.items import ProductoFybeca
+from scrapy_03.spiders.items import ProductoFybeca
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import TakeFirst
 
 class AraniaProductosFybeca(scrapy.Spider):
     name = 'arania_fybeca'
@@ -26,7 +28,7 @@ class AraniaProductosFybeca(scrapy.Spider):
                 item = ProductoFybeca(),
                 selector = producto
                 )
-                # producto_loader.default_output_processor = TakeFirst()
+                producto_loader.default_output_processor = TakeFirst()
                 producto_loader.add_css(
                     'titulo',
                     'a.name::text'
