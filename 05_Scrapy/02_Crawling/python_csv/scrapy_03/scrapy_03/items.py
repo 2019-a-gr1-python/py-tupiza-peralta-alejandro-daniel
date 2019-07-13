@@ -7,6 +7,8 @@
 
 import scrapy
 from scrapy.loader.processors import MapCompose 
+from scrapy.loader.processors import TakeFirst
+import re 
 
 def transformar_url_imagen(texto): 
     url = 'https://www.fybeca.com' 
@@ -20,4 +22,15 @@ class ProductoFybeca(scrapy.Item):
             )
     )
     titulo = scrapy.Field()
-    precio = scrapy.Field()
+
+    precio = scrapy.Field(
+        input_processor= MapCompose(
+            get_item_price
+        ),
+        output_processor = TakeFirst() 
+    ) 
+
+def get_item_price(text_price):
+    regex = r"(\d+\.\d{1,})"
+    return float(re.search(regex,text_price).group(0))
+

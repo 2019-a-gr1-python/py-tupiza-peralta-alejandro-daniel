@@ -20,3 +20,11 @@ class TransformarTituloAMinusculas(object):
     def process_item(self, item, spider):
         item['titulo'] = item['titulo'].lower()
         return item
+
+class FiltrarMayoresPromedio(object):
+    def process_item(self,item,spider):
+        mean = 12.339
+        if(item['precio']>mean):
+            return item
+        else:
+            raise DropItem('No es mayor al promedio')
