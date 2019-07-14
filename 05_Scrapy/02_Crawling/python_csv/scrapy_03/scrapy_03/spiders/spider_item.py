@@ -13,22 +13,16 @@ class AraniaProductosFybeca(scrapy.Spider):
     name = 'arania_fybeca'
 
     def start_requests(self):
-        '''urls = [
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=0&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=25&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=50&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=75&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=100&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=125&pp=25'
-        'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=150&pp=25'
-        ]'''
-        urls = get_urls() 
+        urls = []
+        for i in range(0, 151, 25):
+            urls.append(f'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?s={i}&pp=25&cat=238&ot=0')
+
         for url in urls:
             yield scrapy.Request(url=url)
             
     def parse(self, response):
 
-        #precios = response.css('.price::attr(data-bind)')
+        #precio = response.css('.price::attr(data-bind)')
         productos = response.css('div.product-tile-inner')
         for producto in productos:
             existe_producto = len(producto.css('div.detail'))
@@ -75,7 +69,3 @@ class AraniaProductosFybeca(scrapy.Spider):
                 precio_loader.add_css(
                     'precio',
                 )'''
-
-def get_urls():
-    base_url = 'https://www.fybeca.com/FybecaWeb/pages/search-results.jsf?cat=238&s=changeThis&pp=25'
-    return [base_url.replace('changeThis',str(url)) for url in range(0,150,25) ]
