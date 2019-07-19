@@ -54,18 +54,3 @@ class AraniaProductosFybeca(scrapy.Spider):
                 #producto_imprimir = producto_loader.load_item()
                 #print(producto_imprimir)
                 yield producto_loader.load_item()
-        
-'''        precios = response.css('.price::attr(data-bind)')
-        for precio in precios:
-            existe _precio = len()
-            if(existe_producto > 0 ):
-                precio_loader = ItemLoader(
-                    item = PrecioFybeca(),
-                    selector = precio
-                )
-
-                precio_loader.default_output_processor = TakeFirst()
-
-                precio_loader.add_css(
-                    'precio',
-                )'''
