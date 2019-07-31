@@ -14,16 +14,12 @@ class ProyectoItem(scrapy.Item):
 
     #info de producto
     titulo = scrapy.Field()
-    pubicacion = scrapy.Field()
+    modelo = scrapy.Field()
+    marca = scrapy.Field()
     precio = scrapy.Field()
     condicion = scrapy.Field()
-    envio = scrapy.Field()
-    ubicacion = scrapy.Field()
-    ventas_producto = scrapy.Field()
+    opiniones = scrapy.Field()
 
     #info de la tienda o vendedor
     tipo_vendedor = scrapy.Field()
-    reputacion = scrapy.Field()
     ventas_vendedor = scrapy.Field()
-
-    pass

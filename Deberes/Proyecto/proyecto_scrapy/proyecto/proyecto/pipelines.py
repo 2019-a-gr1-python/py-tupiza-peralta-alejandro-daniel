@@ -8,7 +8,6 @@
 import scrapy
 from scrapy import signals
 from scrapy.exporters import CsvItemExporter
-from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exceptions import DropItem
 from scrapy import Request
 import csv
@@ -28,8 +27,8 @@ class ProyectoPipeline(object):
         file = open('%s_items.csv' % spider.name, 'w+b')
         self.files[spider] = file
         self.exporter = CsvItemExporter(file)
-        self.exporter.fields_to_export = ['titulo', 'pubicacion', 'precio', 'condicion', 'envio', 'ubicacion','tipo_vendedor',
-        				'tipo_vendedor', 'reputacion', 'ventas_vendedor']
+        self.exporter.fields_to_export = ['titulo', 'modelo', 'marca', 'precio', 'condicion', 'opiniones',
+        				'tipo_vendedor', 'ventas_vendedor']
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):

@@ -1,51 +1,38 @@
+# sys.setdefaultencoding('utf8')
+
 import scrapy
 from scrapy.spider import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.exceptions import CloseSpider
 from proyecto.items import ProyectoItem
 
-class ProyectoItem(CrawlSpider):
-    name = 'proyecto'
-    item_count = 0
-    allowed_domain = ['https://computacion.mercadolibre.com.ec']
-    start_urls = ['https://computacion.mercadolibre.com.ec/apple-equipos/']
+class ComputadorasSpider(CrawlSpider):
+	name = 'computadoras'
+	item_count = 0
+	allowed_domain = ['www.mercadolibre.com.mx']
+	start_urls = ['https://listado.mercadolibre.com.mx/computadoras#D[A:computadoras,L:1]']
 
-    rules = {
+	rules = {
+		# Para cada item
+		Rule(LinkExtractor(allow = (), restrict_xpaths = ('//li[@class="pagination__next"]/a'))),
+		Rule(LinkExtractor(allow =(), restrict_xpaths = ('//h2[contains(@class,"item__title")]/a')),
+							callback = 'parse_item', follow = False)
+	}
 
-        Rule(LinkExtractor(allow = (), restrict_xpaths = ('//li[@class="andes-pagination__button"]/a'))),
-        Rule(LinkExtractor(allow = (), restrict_xpaths = ('//h2[@class="item__title list-view-item-title"]')),
-                            callback = 'parse_item', follow = False)
-    }
-
-    """ 
-        segundo
-        //h2[@class="item__title list-view-item-title"]/a
-        //*[contains(@class, "list-view-item-title")]
-    """
-    
-    """
-        primero
-        //*[contains(@class, "andes-pagination__button--next")]
-        //li[@class="andes-pagination__button andes-pagination__button--next"]
-    """
-
-    def parse_item(self, response):
-        item_apple = ProyectoItem()
-
-        #infor de producto
-        item_apple['titulo'] = response.xpath('normalize-space(//*[@id="short-desc"]/div/header/h1/text())').extract()
-        item_apple['pubicacion'] = response.xpath('normalize-space(//span[@class="item-info__id-number"]/text())').extract()
-        item_apple['precio'] = response.xpath('normalize-space(//*[@id="productInfo"]/fieldset[1]/span/span[2]/text())').extract()
-        item_apple['condicion'] = response.xpath('normalize-space(//*[@id="short-desc"]/div/dl/div/text())').extract()
-        item_apple['envio'] = response.xpath('normalize-space(//*[contains(@class,"shipping-method-title")/text()])').extract()
-        item_apple['ubicacion'] = response.xpath('normalize-space(//*[@id="productInfo"]/div[1]/fieldset[2]/article/div[1]/p[2]/text())').extract()
-   
-        # Jefe de la tienda o vendedor
-        item_apple['tipo_vendedor'] = response.xpath('normalize-space(//*[@id="root-app"]/div/div[1]/div[2]/div[1]/section[2]/div[2]/p[1]/text())').extract()
-        item_apple['reputacion'] = response.xpath('normalize-space(//*[@id="root-app"]/div/div[1]/div[2]/div[1]/section[2]/div[3]/div/div/div/dl/dd[1]/strong/text())').extract()
-        item_apple['ventas_vendedor'] = response.xpath('normalize-space(//*[@id="root-app"]/div/div[1]/div[2]/div[1]/section[2]/div[3]/div/div/div/dl/dd[3]/strong/text())').extract()
-
-        self.item_count += 1
-        if self.item_count > 20:
-            raise CloseSpider('item_exceeded')
-        yield item_apple
+	def parse_item(self, response):
+		computadora_item = ProyectoItem()
+		#info de producto
+		computadora_item['titulo'] = response.xpath('normalize-space(//h1[@class="item-title__primary "]/text())').extract_first()
+		computadora_item['modelo'] = response.xpath('normalize-space(//*[@id="root-app"]/div[2]/div[1]/div[1]/section[3]/div/section/ul/li[3]/span)').extract()
+		computadora_item['marca'] = response.xpath('normalize-space(//*[@id="root-app"]/div[2]/div[1]/div[1]/section[3]/div/section/ul/li[1]/span)').extract()
+		computadora_item['precio'] = response.xpath('normalize-space(//span[@class="price-tag-fraction"]/text())').extract()
+		computadora_item['condicion'] = response.xpath('normalize-space(//div[@class="item-conditions"]/text())').extract()
+		computadora_item['opiniones'] = response.xpath('normalize-space(//span[@class="review-summary-average"]/text())').extract()
+		#info de la tienda o vendedor
+		computadora_item['tipo_vendedor'] = response.xpath('normalize-space(//p[contains(@class, "power-seller")]/text())').extract()
+		computadora_item['ventas_vendedor'] = response.xpath('normalize-space(//dd[@class="reputation-relevant"]/strong/text())').extract()
+		
+		self.item_count += 1
+		if self.item_count > 15:
+			raise CloseSpider('item_exceeded')
+		yield computadora_item
