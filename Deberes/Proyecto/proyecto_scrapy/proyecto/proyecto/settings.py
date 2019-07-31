@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for scrapyP project
+# Scrapy settings for proyecto project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,16 +9,15 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'scrapyP'
+BOT_NAME = 'proyecto'
 
-SPIDER_MODULES = ['scrapyP.spiders']
-NEWSPIDER_MODULE = 'scrapyP.spiders'
+SPIDER_MODULES = ['proyecto.spiders']
+NEWSPIDER_MODULE = 'proyecto.spiders'
 
-#CSV IMPORTACION
-ITEM_PIPELINES = {'scrapyP.pipelines.ImpresorasPipeline': 500}
-
+# CSV Importacion
+ITEM_PIPELINES = {'proyecto.pipelines.ProyectoPipeline': 300}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'scrapyP (+http://www.yourdomain.com)'
+#USER_AGENT = 'proyecto (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -49,13 +48,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'scrapyP.middlewares.ScrapypSpiderMiddleware': 543,
+#    'proyecto.middlewares.ProyectoSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'scrapyP.middlewares.ScrapypDownloaderMiddleware': 543,
+#    'proyecto.middlewares.ProyectoDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -67,7 +66,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'scrapyP.pipelines.ScrapypPipeline': 300,
+#    'proyecto.pipelines.ProyectoPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
