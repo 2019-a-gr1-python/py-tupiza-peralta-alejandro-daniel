@@ -33,6 +33,6 @@ class ComputadorasSpider(CrawlSpider):
 		computadora_item['ventas_vendedor'] = response.xpath('normalize-space(//dd[@class="reputation-relevant"]/strong/text())').extract()
 		
 		self.item_count += 1
-		if self.item_count > 15:
+		if self.item_count > 40:
 			raise CloseSpider('item_exceeded')
 		yield computadora_item
