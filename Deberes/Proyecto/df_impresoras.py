@@ -146,16 +146,3 @@ plt.show()
 
 
 marca = np.unique(df_impresoras['marca'].get_values(), return_counts = True)[0]
-
-
-
-
-
-
-
-
-
-
-
-
-
