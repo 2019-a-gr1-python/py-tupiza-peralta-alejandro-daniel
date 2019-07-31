@@ -40,6 +40,13 @@ df_impresoras2 = pd.read_csv(
         )
 
 precio2 = df_impresoras2.filter(items = ["titulo","precio"]).sort_values('precio', ascending=False)
+precio2["precio"] = [x.replace(",", "  ") for x in precio2["precio"]]
+
+
+precio2.replace({'precio' : '.'}, '', inplace=True)
+
+precio2.loc[precio2['precio'] == ',', 'precio'] = ''
+print(precio2)
 
 precio3 = df_impresoras2.filter(items = ["titulo","ventas_vendedor"]).sort_values('ventas_vendedor', ascending=False)
 
@@ -66,8 +73,12 @@ for i, v in enumerate(pio):
 plt.show()
 
 cols = ['precio']
-df[cols] = df[cols].applymap(lambda x: '{0:.4f}'.format(x))
-print (df)
+df_impresoras2[cols] = df_impresoras2[cols].applymap(lambda x: '{0:.4f}'.format(x))
+print (df_impresoras2)
+
+df_impresoras2.loc[df_impresoras2['precio'] == ',', 'precio'] = '.'
+print(df_impresoras2)
+df_impresoras2.loc[df_impresoras2['precio'] == '+55', 'Age'] = '60'
 
 
 titulos = np.unique(df_impresoras2['titulo'].get_values(), return_counts = True)[0]
@@ -106,3 +117,45 @@ tbl = table(ax2, pv_primeros_cinco, loc='center')
 tbl.auto_set_font_size(False)
 tbl.set_fontsize(14)
 plt.show()
+
+marca_productos= df_impresoras2.filter(items = ["titulo","marca"])
+
+marca_productos.groupby('titulo').count()["marca"].plot(kind='bar',stacked=True,title="Total")
+
+
+pv_tabla = df.filter(items = ["titulo","marca"])
+
+ax2 = plt.subplot(122)
+plt.axis('off')
+tbl = table(ax2, marca_productos, loc='center')
+tbl.auto_set_font_size(False)
+tbl.set_fontsize(11)
+plt.show()
+
+
+plt.figure(figsize=(16,8))
+# plot chart
+ax1 = plt.subplot(121, aspect='equal')
+
+marca_productos.plot(kind='pie', y = 'marca', ax=ax1, autopct='%1.1f%%', 
+ startangle=90, shadow=False, labels=marca_productos['titulo'], fontsize=10)
+plt.axis('equal')
+
+# View the plot
+plt.show()
+
+
+marca = np.unique(df_impresoras['marca'].get_values(), return_counts = True)[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
