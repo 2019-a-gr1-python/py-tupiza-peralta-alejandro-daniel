@@ -12,7 +12,7 @@ import numpy as np
 df_info = pd.read_excel('C:/Users/ad_tp/OneDrive/Documentos/GitHub/py-tupiza-peralta-alejandro-daniel/Deberes/Examen_IIB/documentos_iniciales/informacion_general.xlsx',sheet_name='INFORMACIÓN DISTR.',skiprows=3)
 
 # DataFrame de REVENTA para Empresas
-df_reventa = pd.read_excel('C:/Users/ad_tp/Documentos/documentos_iniciales/informacion_general.xlsx',sheet_name='REVENTA',skiprows=1)
+df_reventa = pd.read_excel('C:/Users/ad_tp/OneDrive/Documentos/GitHub/py-tupiza-peralta-alejandro-daniel/Deberes/Examen_IIB/documentos_iniciales/informacion_general.xlsx',sheet_name='REVENTA',skiprows=1)
 
 # Renombrar las columnas del df_info
 df_info.rename(columns={
@@ -74,10 +74,9 @@ df_empresas.set_index("Codigo")
 # Funcion para limpiar los datos
 def limpiar_datos(dato):
     dato_nuevo=dato
-    dato_nuevo=dato_nuevo.replace('|',' ')
+    dato_nuevo=dato_nuevo.replace('|','nan')
     dato_nuevo=dato_nuevo.replace('´',' ')
     dato_nuevo=dato_nuevo.replace('\n ', ' ')
-    dato_nuevo=dato_nuevo.replace('nan', ' ')
     return dato_nuevo
 
 
