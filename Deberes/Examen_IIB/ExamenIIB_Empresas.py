@@ -77,6 +77,7 @@ def limpiar_datos(dato):
     dato_nuevo=dato_nuevo.replace('|','nan')
     dato_nuevo=dato_nuevo.replace('´',' ')
     dato_nuevo=dato_nuevo.replace('\n ', ' ')
+    dato_nuevo=dato_nuevo.replace('-', ' ')
     return dato_nuevo
 
 
@@ -94,7 +95,7 @@ df_empresas
 
 
 
-path_final='C:/Users/ad_tp/Documentos/empresas.xlsx'
+path_final='C:/Users/ad_tp/OneDrive/Documentos/GitHub/py-tupiza-peralta-alejandro-daniel/Deberes/Examen_IIB/empresas_final/empresas.xlsx'
 df_empresas.to_excel(path_final)
 
 
